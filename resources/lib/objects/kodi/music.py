@@ -20,6 +20,7 @@ class Music(Kodi):
 
         self.cursor = cursor
         self.version_id = self.get_version()
+        LOG.debug("Detected Music DB version %r", self.version_id)
         self.update_versiontagscan()
         Kodi.__init__(self)
 
@@ -34,17 +35,17 @@ class Music(Kodi):
 
     def create_entry_album(self):
         self.cursor.execute(QU.create_album)
-        
+
         return self.cursor.fetchone()[0] + 1
 
     def create_entry_song(self):
         self.cursor.execute(QU.create_song)
-        
+
         return self.cursor.fetchone()[0] + 1
 
     def create_entry_genre(self):
         self.cursor.execute(QU.create_genre)
-        
+
         return self.cursor.fetchone()[0] + 1
 
     def update_path(self, *args):
@@ -258,7 +259,7 @@ class Music(Kodi):
 
         return self.cursor.fetchone()[0]
 
-    #current bug in Kodi 18 that will ask for a scan of music tags unless this is set without a lastscanned
+    # current bug in Kodi 18 that will ask for a scan of music tags unless this is set without a lastscanned
     def update_versiontagscan(self):
         if self.version_id < 72:
             return
