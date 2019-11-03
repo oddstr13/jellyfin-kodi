@@ -157,6 +157,7 @@ class Connect(object):
 
         state = state or self.connect_manager.connect({'enableAutoLogin': False})
         user = {}
+        
         dialog = ServerConnect("script-jellyfin-connect-server.xml", *XML_PATH)
         dialog.set_args(**{
             'connect_manager': self.connect_manager,
