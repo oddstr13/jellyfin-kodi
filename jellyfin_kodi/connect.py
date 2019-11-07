@@ -3,7 +3,6 @@
 ##################################################################################################
 
 import logging
-import os
 
 import xbmc
 import xbmcaddon
@@ -20,7 +19,6 @@ from jellyfin.exceptions import HTTPException
 
 LOG = logging.getLogger("JELLYFIN." + __name__)
 XML_PATH = (xbmcaddon.Addon(addon_id()).getAddonInfo('path'), "default", "1080i")
-
 
 ##################################################################################################
 
@@ -157,7 +155,7 @@ class Connect(object):
 
         state = state or self.connect_manager.connect({'enableAutoLogin': False})
         user = {}
-        
+
         dialog = ServerConnect("script-jellyfin-connect-server.xml", *XML_PATH)
         dialog.set_args(**{
             'connect_manager': self.connect_manager,
