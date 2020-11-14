@@ -65,7 +65,8 @@ class ServiceManager(threading.Thread):
 
 
 if __name__ == "__main__":
-    LOG.info("-->[ service ]")
+    LOG.info("--->[ service ]")
+    LOG.debug(sys.argv)
     LOG.info("Delay startup by %s seconds.", DELAY)
 
     while True:

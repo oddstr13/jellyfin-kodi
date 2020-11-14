@@ -28,8 +28,8 @@ LOG = LazyLogger(__name__)
 
 
 if __name__ == "__main__":
-
     LOG.debug("--->[ default ]")
+    LOG.debug(sys.argv)
 
     try:
         Events()

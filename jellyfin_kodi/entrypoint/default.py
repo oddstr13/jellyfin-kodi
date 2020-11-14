@@ -14,7 +14,7 @@ import client
 from database import reset, get_sync, Database, jellyfin_db, get_credentials
 from objects import Objects, Actions
 from downloader import TheVoid
-from helper import translate, event, settings, window, dialog, api, JSONRPC
+from helper import translate, event, settings, window, dialog, api, JSONRPC, kodi_version
 from helper.utils import JsonDebugPrinter
 from helper import LazyLogger
 
@@ -70,7 +70,13 @@ class Events(object):
         elif mode == 'play':
 
             item = TheVoid('GetItem', {'Id': params['id'], 'ServerId': server}).get()
-            item["resumePlayback"] = sys.argv[3].split(":")[1] == "true"
+
+            # Kodi 17 and below does not provide the "resume:" argument.
+            if kodi_version() <= 17:
+                item["resumePlayback"] = False
+            else:
+                item["resumePlayback"] = sys.argv[3].split(":")[1] == "true"
+
             Actions(server).play(item, params.get('dbid'), params.get('transcode') == 'true', playlist=params.get('playlist') == 'true')
 
         elif mode == 'playlist':
